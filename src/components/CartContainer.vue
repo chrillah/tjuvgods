@@ -1,5 +1,5 @@
 <template>
-  <div class="close-cart-area" @click="$store.commit('toggleCart')">
+  <div class="close-cart-area" @click="$store.commit('closeCart')">
     <div class="container">
       <div class="top-title-container">
         <h2 class="top-title">Varukorgen</h2>
@@ -65,6 +65,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 90;
 }
 .link {
   text-decoration: none;

@@ -11,7 +11,7 @@
   --third-red: #f2a7a7;
   --grey: #f2f2f2;
   --black: #000000;
-  --shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;;
+  --shadow: 0px 0px 15px 4px rgba(0,0,0,0.1);
 }
 
 /* Default settings */

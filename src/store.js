@@ -5,6 +5,10 @@ const mutations = {
     state.showCart = !state.showCart;
   },
 
+  closeCart(state) {
+    state.showCart = false;
+  },
+
   removeItemFromCart(state, product) {
     for (let i = 0; i < state.cart.length; i++) {
       if (state.cart[i].id === product.id) {
