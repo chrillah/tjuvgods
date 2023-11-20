@@ -1,10 +1,10 @@
 <script setup>
-import NavBar from "./components/NavBar.vue";
+import TheNavBar from "./components/TheNavBar.vue";
 </script>
 
 <template>
   <main>
-    <NavBar />
+    <TheNavBar />
   </main>
 </template>
 

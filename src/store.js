@@ -6,6 +6,7 @@ const mutations = {
   },
 
   closeCart(state) {
+    console.log('click')
     state.showCart = false;
   },
 

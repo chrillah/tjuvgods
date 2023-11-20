@@ -47,7 +47,7 @@ export default {
       <div class="navbar-nav ml-auto">
         <a @click="$store.commit('toggleCart')" class="nav-link cart" href="#">
           <img class="Kassa" src="../assets/img/shopping-cart-icon-1.png" />
-          <p class="cart-number">{{ getCartItemCount }}</p>
+          <p class="cart-number" v-if="getCartItemCount > 0">{{ getCartItemCount }}</p>
         </a>
       </div>
     </div>
