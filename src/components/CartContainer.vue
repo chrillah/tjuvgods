@@ -1,37 +1,39 @@
 <template>
-  <div class="container" id="kassaModul">
-    <div class="top-title-container">
-      <h2 class="top-title">Varukorgen</h2>
-      <button @click="$store.commit('toggleCart')" class="close">
-        &times;
-      </button>
-    </div>
-    <div class="cart-container">
-      <CartitemsContainer />
-    </div>
-    <div v-if="$store.state.cart.length === 0" class="to-checkout-container">
-      <p>Du har inga stöldgods i varukorgen</p>
-      <RouterLink
-        @click="$store.commit('toggleCart')"
-        class="action-btn link"
-        to="/products"
-        >Handla istället</RouterLink
-      >
-    </div>
-    <div v-if="$store.state.cart.length" class="to-checkout-container">
-      <div class="total-cost-container">
-        <p>Totalt :</p>
-
-        <p>{{ getCartTotal }} KR</p>
+  <div class="close-cart-area" @click="$store.commit('toggleCart')">
+    <div class="container">
+      <div class="top-title-container">
+        <h2 class="top-title">Varukorgen</h2>
+        <button @click="$store.commit('toggleCart')" class="close">
+          &times;
+        </button>
       </div>
-      <div @click="tillKassan" class="action-btn" role="button">
+      <div class="cart-container">
+        <CartitemsContainer />
+      </div>
+      <div v-if="$store.state.cart.length === 0" class="to-checkout-container">
+        <p>Du har inga stöldgods i varukorgen</p>
         <RouterLink
           @click="$store.commit('toggleCart')"
-          class="link"
-          to="/summary"
+          class="action-btn link"
+          to="/products"
+          >Handla istället</RouterLink
         >
-          Till kassan</RouterLink
-        >
+      </div>
+      <div v-if="$store.state.cart.length" class="to-checkout-container">
+        <div class="total-cost-container">
+          <p>Totalt :</p>
+
+          <p>{{ getCartTotal }} KR</p>
+        </div>
+        <div @click="tillKassan" class="action-btn" role="button">
+          <RouterLink
+            @click="$store.commit('toggleCart')"
+            class="link"
+            to="/summary"
+          >
+            Till kassan</RouterLink
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -57,6 +59,13 @@ export default {
 </script>
 
 <style scoped>
+.close-cart-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
 .link {
   text-decoration: none;
   color: var(--black);
