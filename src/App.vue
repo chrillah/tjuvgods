@@ -8,8 +8,3 @@ import TheNavBar from "./components/TheNavBar.vue";
   </main>
 </template>
 
-<!-- <style scoped>
-main {
-  height: auto;
-}
-</style> -->

@@ -1,16 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import CartContainer from "../components/CartContainer.vue";
+import FooterBar from "./FooterBar.vue";
 </script>
 
 <script>
 import { mapGetters } from "vuex";
-import FooterBar from "./FooterBar.vue";
 export default {
   data() {
     return {
       someThingInCart: true,
-      menu: 'close-menu',
+      menu: "close-menu",
     };
   },
   computed: {
@@ -19,14 +19,14 @@ export default {
       return this.$store.state.cart;
     },
   },
-  methods:{
-    openMenu(){
-        this.menu = 'link-container';
+  methods: {
+    openMenu() {
+      this.menu = "link-container";
     },
-    closeMenu(){
-        this.menu = 'close-menu';
-    }
-  }
+    closeMenu() {
+      this.menu = "close-menu";
+    },
+  },
 };
 </script>
 
@@ -55,7 +55,11 @@ export default {
               <RouterLink to="/about" class="nav-link">Om oss</RouterLink>
             </li>
           </ul>
-          <button @click="closeMenu()" class="navbar-button cross" type="button"></button>
+          <button
+            @click="closeMenu()"
+            class="navbar-button cross"
+            type="button"
+          ></button>
         </div>
         <a @click="$store.commit('toggleCart')" class="cart" href="#">
           <img class="cart-logo" src="../assets/img/shopping-cart-icon-2.png" />
@@ -63,7 +67,11 @@ export default {
             {{ getCartItemCount }}
           </p>
         </a>
-        <button @click="openMenu()" class="navbar-button hamburger" type="button"></button>
+        <button
+          @click="openMenu()"
+          class="navbar-button hamburger"
+          type="button"
+        ></button>
       </div>
     </div>
 
@@ -132,7 +140,7 @@ nav ul li a:hover {
 
 .cart {
   display: grid;
-  grid-template-rows:10px;
+  grid-template-rows: 10px;
 }
 
 .cart-number {
@@ -155,11 +163,11 @@ nav ul li a:hover {
 }
 
 @media (max-width: 767px) {
-    .close-menu{
-        height: 0;
-        transition: all 150ms ease-in-out;
-        overflow: hidden;
-    }
+  .close-menu {
+    height: 0;
+    transition: all 150ms ease-in-out;
+    overflow: hidden;
+  }
   .link-container {
     height: auto;
     position: fixed;
@@ -191,18 +199,19 @@ nav ul li a:hover {
   margin-top: 3.5rem;
 }
 
-.cross,.hamburger{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 28px;
-    height: 28px;
+.cross,
+.hamburger {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 28px;
+  height: 28px;
 }
-.cross{
-    background-image: url('../assets/img/icon_cross.png');
+.cross {
+  background-image: url("../assets/img/icon_cross.png");
 }
 
-.hamburger{
-    background-image: url('../assets/img/icon_hamburger.png');
+.hamburger {
+  background-image: url("../assets/img/icon_hamburger.png");
 }
 </style>
