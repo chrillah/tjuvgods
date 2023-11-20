@@ -55,7 +55,7 @@ export default {
               <RouterLink to="/about" class="nav-link">Om oss</RouterLink>
             </li>
           </ul>
-          <button @click="closeMenu()" class="navbar-button" type="button">X</button>
+          <button @click="closeMenu()" class="navbar-button cross" type="button"></button>
         </div>
         <a @click="$store.commit('toggleCart')" class="cart" href="#">
           <img class="cart-logo" src="../assets/img/shopping-cart-icon-2.png" />
@@ -63,7 +63,7 @@ export default {
             {{ getCartItemCount }}
           </p>
         </a>
-        <button @click="openMenu()" class="navbar-button" type="button">=</button>
+        <button @click="openMenu()" class="navbar-button hamburger" type="button"></button>
       </div>
     </div>
 
@@ -139,8 +139,6 @@ nav ul li a:hover {
   font-size: 10px;
   height: 16px;
   width: 16px;
-  /* margin-top: 5px;
-  margin-left: 3px; */
   margin-left: 6px;
   border-radius: 50%;
   display: flex;
@@ -191,5 +189,20 @@ nav ul li a:hover {
 
 .add-margin {
   margin-top: 3.5rem;
+}
+
+.cross,.hamburger{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 28px;
+    height: 28px;
+}
+.cross{
+    background-image: url('../assets/img/icon_cross.png');
+}
+
+.hamburger{
+    background-image: url('../assets/img/icon_hamburger.png');
 }
 </style>
