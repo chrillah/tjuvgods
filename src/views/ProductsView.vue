@@ -6,26 +6,38 @@ const showSort = ref(false);
 
 <template>
   <div class="som-hittat">
-    <h1 class="big-text">Som hittat</h1>
+    <h1 class="big-title">Som hittat</h1>
   </div>
   <div class="searchSort">
     <!-- Search -->
     <div class="search-filter">
-      <h5 v-bind:style="{ display: showSearch ? 'none' : 'inline' }">Sök </h5>
-      <i class="fa-solid fa-magnifying-glass" @click="showSearch = !showSearch"></i>
-      <input  @input="this.products = searchProducts(this.titlesok)" placeholder="Sök efter produkt..."
-        class="openClose" type="text" v-model="titlesok" v-bind:style="{ display: showSearch ? 'inline' : 'none' }" />
+      <h5 v-bind:style="{ display: showSearch ? 'none' : 'inline' }">Sök</h5>
+      <i
+        class="fa-solid fa-magnifying-glass"
+        @click="showSearch = !showSearch"
+      ></i>
+      <input
+        @input="this.products = searchProducts(this.titlesok)"
+        placeholder="Sök efter produkt..."
+        class="openClose"
+        type="text"
+        v-model="titlesok"
+        v-bind:style="{ display: showSearch ? 'inline' : 'none' }"
+      />
     </div>
 
     <!-- Sort -->
     <div class="search-filter search-filter-2">
-      <h5>Kategori </h5>
+      <h5>Kategori</h5>
       <i class="fa-solid fa-filter" @click="showSort = !showSort"></i>
       <h5 v-bind:style="{ display: showSort ? 'block' : 'none' }">
         <!-- Filtrera efter Kategori -->
       </h5>
-      <select v-model="Kategori" v-bind:style="{ display: showSort ? 'block' : 'none' }"
-        @change="filterCategory(this.Kategori)">
+      <select
+        v-model="Kategori"
+        v-bind:style="{ display: showSort ? 'block' : 'none' }"
+        @change="filterCategory(this.Kategori)"
+      >
         <option>Allt</option>
         <option>Hittegods</option>
         <option>Kläder</option>
@@ -34,14 +46,34 @@ const showSort = ref(false);
         <option>Glasögon</option>
       </select>
 
-      <button v-bind:style="{ display: showSort ? 'inline' : 'none' }" class="filter-button" @click="priceLow">Pris: Lågt
-        till högt</button>
-      <button v-bind:style="{ display: showSort ? 'inline' : 'none' }" class="filter-button" @click="priceHigh">Pris: Högt
-        till lågt</button>
-      <button v-bind:style="{ display: showSort ? 'inline' : 'none' }" class="filter-button"
-        @click="alfabeticalHigh">Alfabetisk ordning: A-Ö</button>
-      <button v-bind:style="{ display: showSort ? 'inline' : 'none' }" class="filter-button"
-        @click="alfabeticalLow">Alfabetisk ordning: Ö-A</button>
+      <button
+        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
+        class="filter-button"
+        @click="priceLow"
+      >
+        Pris: Lågt till högt
+      </button>
+      <button
+        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
+        class="filter-button"
+        @click="priceHigh"
+      >
+        Pris: Högt till lågt
+      </button>
+      <button
+        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
+        class="filter-button"
+        @click="alfabeticalHigh"
+      >
+        Alfabetisk ordning: A-Ö
+      </button>
+      <button
+        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
+        class="filter-button"
+        @click="alfabeticalLow"
+      >
+        Alfabetisk ordning: Ö-A
+      </button>
     </div>
 
     <!-- Div @click style=display:block/none -->
@@ -50,8 +82,15 @@ const showSort = ref(false);
   </div>
   <div class="products-wrapper">
     <div class="products-container">
-      <ProductItem class="product-item" v-for="product in products" :key="product.id" @click="selectProduct(product.id)"
-        :image="product.image" :price="product.price" :title="product.title" />
+      <ProductItem
+        class="product-item"
+        v-for="product in products"
+        :key="product.id"
+        @click="selectProduct(product.id)"
+        :image="product.image"
+        :price="product.price"
+        :title="product.title"
+      />
     </div>
   </div>
 </template>
@@ -66,9 +105,9 @@ const showSort = ref(false);
   align-items: center;
 }
 
-.big-text {
-    font-family: 'Turret Road', cursive;
-    font-weight: bold;
+.big-title {
+  font-family: "Turret Road", cursive;
+  font-weight: bold;
   font-size: 4em;
   margin: 0 auto;
   text-align: center;
@@ -96,10 +135,10 @@ i {
 }
 
 .filter-button {
-  padding: .5em 1em;
-  margin-right: .5em;
-  margin-bottom: .5em;
-  margin-top: .5em;
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   background-color: white;
 }
 
@@ -189,8 +228,6 @@ export default {
       }
     },
 
-
-
     // Sök funktionalitet
     searchProducts(search) {
       console.log(search);
@@ -204,24 +241,24 @@ export default {
       //   console.log(this.resterProducts.length);
       //   console.log("Nu ska man fetcha nya produkter");
 
-        const matchandeProdukter = this.resterProducts.filter((produkt) => {
-          const titel = produkt.title.toLowerCase();
-          return titel.includes(search.toLowerCase());
-        });
-        console.log(matchandeProdukter.length, " vi kom till andra sök");
-        return matchandeProdukter;
+      const matchandeProdukter = this.resterProducts.filter((produkt) => {
+        const titel = produkt.title.toLowerCase();
+        return titel.includes(search.toLowerCase());
+      });
+      console.log(matchandeProdukter.length, " vi kom till andra sök");
+      return matchandeProdukter;
       // } else {
       //   console.log("vi kom till else, nu ska man fetcha enligt sök");
       //   console.log(matchingProducts, typeof matchingProducts);
       //   return matchingProducts;
       // }
     },
-    mounted(){
-      fetch('/productapi.json')
-      .then(Response => Response.json())
-      .then(productapi => {
-        this.products = productapi
-      })
+    mounted() {
+      fetch("/productapi.json")
+        .then((Response) => Response.json())
+        .then((productapi) => {
+          this.products = productapi;
+        });
     },
 
     selectProduct(id) {
@@ -249,7 +286,7 @@ export default {
       products: [],
       Kategori: "Allt",
       titlesok: "",
-      resterProducts: []
+      resterProducts: [],
 
       // filteredArray: []
       // Kategori: "Glasögon" || "Skor" || "Kläder" || "Hittegods" || "Elektronik",
