@@ -180,6 +180,7 @@ button {
 .products-wrapper {
   background-color: white;
   padding-top: 1rem;
+  margin: 0 .4rem;
 }
 
 .products-container {
@@ -224,7 +225,6 @@ export default {
   mounted() {
     this.fetchProducts();
   },
-  // emits: ["produkt-vald"],
   methods: {
     priceHigh() {
       this.products.sort((a, b) => b.price - a.price);
@@ -239,7 +239,6 @@ export default {
       this.products.sort((a, b) => a.price - b.price);
     },
 
-    // Filter funktionalitet
     async filterCategory(category) {
       console.log(category);
       if (category === "Allt") {
@@ -251,29 +250,12 @@ export default {
         );
       }
     },
-
-    // Sök funktionalitet
     searchProducts(search) {
-      // const matchingProducts = this.products.filter((product) => {
-      //   const title = product.title.toLowerCase();
-      //   return title.includes(search.toLowerCase());
-      // });
-      // if (matchingProducts.length == 0) {
-      //   console.log(matchingProducts == true);
-      //   console.log(matchingProducts.length);
-      //   console.log(this.resterProducts.length);
-      //   console.log("Nu ska man fetcha nya produkter");
-
-      const matchandeProdukter = this.resterProducts.filter((produkt) => {
-        const titel = produkt.title.toLowerCase();
-        return titel.includes(search.toLowerCase());
+      const matchingProducts = this.leftOverProducts.filter((product) => {
+        const title = product.title.toLowerCase();
+        return title.includes(search.toLowerCase());
       });
-      return matchandeProdukter;
-      // } else {
-      //   console.log("vi kom till else, nu ska man fetcha enligt sök");
-      //   console.log(matchingProducts, typeof matchingProducts);
-      //   return matchingProducts;
-      // }
+      return matchingProducts;
     },
     mounted() {
       fetch("/productapi.json")
@@ -284,10 +266,6 @@ export default {
     },
 
     selectProduct(id) {
-      // const valdProdukt = this.products.find(product => product.id == id)
-      // console.log(valdProdukt.title)
-      // console.log(id); name: 'productdetail' Voalr föreslåt detta "name: ProductDetailView" props: { productData: this.products }
-      // this.$emit("produkt-vald", { id, productData: valdProdukt });
       this.$router.push({
         name: "productdetail",
         params: { productID: id },
@@ -300,7 +278,7 @@ export default {
         },
       });
       this.products = result.data;
-      this.resterProducts = result.data;
+      this.leftOverProducts = result.data;
     },
   },
   data() {
@@ -308,10 +286,7 @@ export default {
       products: [],
       category: "Allt",
       searchResult: "",
-      resterProducts: [],
-
-      // filteredArray: []
-      // Kategori: "Glasögon" || "Skor" || "Kläder" || "Hittegods" || "Elektronik",
+      leftOverProducts: [],
     };
   },
 };
