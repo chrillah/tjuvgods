@@ -5,7 +5,7 @@ const showSort = ref(false);
 </script>
 
 <template>
-  <div class="som-hittat">
+  <div class="hero">
     <h1 class="big-title">Som hittat</h1>
   </div>
   <div class="searchSort">
@@ -96,9 +96,8 @@ const showSort = ref(false);
 </template>
 
 <style scoped>
-.som-hittat {
-  width: 100%;
-  height: 50vh;
+.hero {
+    min-height: 500px;
   background-color: var(--primary-red);
   display: flex;
   justify-content: center;
@@ -113,6 +112,18 @@ const showSort = ref(false);
   text-align: center;
   background-color: white;
   padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .big-title {
+    font-size: 6em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .big-title {
+    font-size: 8em;
+  }
 }
 
 .searchSort {
