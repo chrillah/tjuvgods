@@ -1,84 +1,46 @@
 <script setup>
-import { ref } from "vue";
-const showSearch = ref(false);
-const showSort = ref(false);
+
 </script>
 
 <template>
   <div class="hero">
     <h1 class="big-title">Som hittat</h1>
   </div>
-  <div class="searchSort">
-    <!-- Search -->
-    <div class="search-filter">
-      <h5 v-bind:style="{ display: showSearch ? 'none' : 'inline' }">Sök</h5>
-      <i
-        class="fa-solid fa-magnifying-glass"
-        @click="showSearch = !showSearch"
-      ></i>
+  <div class="filter-sort-wrapper">
+    <div>
       <input
-        @input="this.products = searchProducts(this.titlesok)"
+        @input="this.products = searchProducts(this.searchResult)"
         placeholder="Sök efter produkt..."
-        class="openClose"
         type="text"
-        v-model="titlesok"
-        v-bind:style="{ display: showSearch ? 'inline' : 'none' }"
+        v-model="searchResult"
       />
     </div>
 
-    <!-- Sort -->
-    <div class="search-filter search-filter-2">
-      <h5>Kategori</h5>
-      <i class="fa-solid fa-filter" @click="showSort = !showSort"></i>
-      <h5 v-bind:style="{ display: showSort ? 'block' : 'none' }">
-        <!-- Filtrera efter Kategori -->
-      </h5>
-      <select
-        v-model="Kategori"
-        v-bind:style="{ display: showSort ? 'block' : 'none' }"
-        @change="filterCategory(this.Kategori)"
-      >
-        <option>Allt</option>
-        <option>Hittegods</option>
-        <option>Kläder</option>
-        <option>Skor</option>
-        <option>Elektronik</option>
-        <option>Glasögon</option>
-      </select>
+    <div class="filter-sort-container">
+      <div class="filter-container">
+        <p>Visa:</p>
+        <select v-model="category" @change="filterCategory(this.category)">
+          <option>Allt</option>
+          <option>Hittegods</option>
+          <option>Kläder</option>
+          <option>Skor</option>
+          <option>Elektronik</option>
+          <option>Glasögon</option>
+        </select>
+      </div>
 
-      <button
-        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
-        class="filter-button"
-        @click="priceLow"
-      >
-        Pris: Lågt till högt
-      </button>
-      <button
-        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
-        class="filter-button"
-        @click="priceHigh"
-      >
-        Pris: Högt till lågt
-      </button>
-      <button
-        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
-        class="filter-button"
-        @click="alfabeticalHigh"
-      >
-        Alfabetisk ordning: A-Ö
-      </button>
-      <button
-        v-bind:style="{ display: showSort ? 'inline' : 'none' }"
-        class="filter-button"
-        @click="alfabeticalLow"
-      >
-        Alfabetisk ordning: Ö-A
-      </button>
+      <div class="sort-container">
+        <button class="sort-button" @click="priceLow">
+          Lågt till högt pris
+        </button>
+        <button class="sort-button" @click="priceHigh">
+          Högt till lågt pris
+        </button>
+        <button class="sort-button" @click="alfabeticalHigh">A-Ö</button>
+        <button class="sort-button" @click="alfabeticalLow">Ö-A</button>
+      </div>
     </div>
 
-    <!-- Div @click style=display:block/none -->
-
-    <!-- <input class=openClose type=dropdown v-model=this.data> -->
   </div>
   <div class="products-wrapper">
     <div class="products-container">
@@ -96,8 +58,16 @@ const showSort = ref(false);
 </template>
 
 <style scoped>
+
+p,
+h1,
+select,
+button{
+    margin: 0;
+    padding: 0;
+}
 .hero {
-    min-height: 500px;
+  min-height: 500px;
   background-color: var(--primary-red);
   display: flex;
   justify-content: center;
@@ -126,35 +96,29 @@ const showSort = ref(false);
   }
 }
 
-.searchSort {
-  padding-top: 2vh;
-  padding-left: 2vw;
+.filter-sort-wrapper {
+  margin: 0.4rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
-i {
-  display: inline;
+.filter-sort-wrapper input:focus {
+  border: 2px solid transparent;
+  outline: 2px solid var(--primary-red);
 }
 
-.search-filter {
-  padding-right: 1em;
+.filter-sort-container {
+  display: flex;
 }
 
-.search-filter-2 {
-  padding-left: 8vh;
+.filter-container {
+  display: flex;
 }
 
-.filter-button {
-  padding: 0.5em 1em;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
-  background-color: white;
+.filter-container select{
+    border: none;
 }
-
-h5 {
-  display: inline;
+.sort-button {
 }
 
 .product-item {
@@ -163,7 +127,7 @@ h5 {
 
 .products-wrapper {
   background-color: white;
-  padding-top: 8rem;
+  padding-top: 5rem;
 }
 
 .products-container {
@@ -295,8 +259,8 @@ export default {
   data() {
     return {
       products: [],
-      Kategori: "Allt",
-      titlesok: "",
+      category: "Allt",
+      searchResult: "",
       resterProducts: [],
 
       // filteredArray: []
