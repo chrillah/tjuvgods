@@ -1,24 +1,20 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <div class="hero">
     <h1 class="big-title">Som hittat</h1>
   </div>
   <div class="filter-sort-wrapper">
-    <div>
-      <input
-        @input="this.products = searchProducts(this.searchResult)"
-        placeholder="Sök efter produkt..."
-        type="text"
-        v-model="searchResult"
-      />
-    </div>
-
     <div class="filter-sort-container">
+      <div class="search-container">
+        <input
+          @input="this.products = searchProducts(this.searchResult)"
+          placeholder="Sök efter produkt..."
+          type="text"
+          v-model="searchResult"
+        />
+      </div>
       <div class="filter-container">
-        <p>Visa:</p>
         <select v-model="category" @change="filterCategory(this.category)">
           <option>Allt</option>
           <option>Hittegods</option>
@@ -28,19 +24,16 @@
           <option>Glasögon</option>
         </select>
       </div>
+    </div>
 
+    <div class="sort-wrapper">
       <div class="sort-container">
-        <button class="sort-button" @click="priceLow">
-          Lågt till högt pris
-        </button>
-        <button class="sort-button" @click="priceHigh">
-          Högt till lågt pris
-        </button>
+        <button class="sort-button" @click="priceLow">Lågt till högt</button>
+        <button class="sort-button" @click="priceHigh">Högt till lågt</button>
         <button class="sort-button" @click="alfabeticalHigh">A-Ö</button>
         <button class="sort-button" @click="alfabeticalLow">Ö-A</button>
       </div>
     </div>
-
   </div>
   <div class="products-wrapper">
     <div class="products-container">
@@ -58,13 +51,16 @@
 </template>
 
 <style scoped>
-
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 p,
 h1,
 select,
-button{
-    margin: 0;
-    padding: 0;
+button {
+  margin: 0;
+  padding: 0;
 }
 .hero {
   min-height: 500px;
@@ -95,30 +91,86 @@ button{
     font-size: 8em;
   }
 }
+.search-container input,
+.filter-container select,
+.sort-button {
+  font-size: 0.8rem;
+}
 
 .filter-sort-wrapper {
   margin: 0.4rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  gap: 0.4rem;
 }
 
+@media (min-width: 485px) {
+  .filter-sort-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 629px) {
+  .filter-sort-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.search-container {
+  display: flex;
+}
+.search-container input {
+  width: 100%;
+  border: 1px solid #000000;
+}
 .filter-sort-wrapper input:focus {
   border: 2px solid transparent;
   outline: 2px solid var(--primary-red);
 }
 
 .filter-sort-container {
-  display: flex;
+  gap: 0.3rem;
+  display: grid;
 }
 
 .filter-container {
-  display: flex;
+  display: grid;
 }
 
-.filter-container select{
-    border: none;
+.filter-container select {
+  width: 100%;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+
+.sort-container {
+  gap: 0.3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .sort-button {
+  font-weight: bolder;
+  padding: 0 1rem;
+  border: 1px solid #000000;
+}
+
+.search-container input:hover,
+.filter-container select:hover,
+.sort-button:active,
+.sort-button:hover {
+  border: 1px solid var(--primary-red);
+}
+
+@media (min-width: 800px) {
+  .filter-container {
+    /* position: relative;
+    display: flex; */
+  }
+
+  .sort-container {
+    /* gap: 0.3rem;
+    display: flex; */
+  }
 }
 
 .product-item {
@@ -127,12 +179,13 @@ button{
 
 .products-wrapper {
   background-color: white;
-  padding-top: 5rem;
+  padding-top: 1rem;
 }
 
 .products-container {
   position: relative;
   display: grid;
+  gap:.6rem;
   grid-template-columns: 1fr;
 }
 
@@ -175,37 +228,32 @@ export default {
   methods: {
     priceHigh() {
       this.products.sort((a, b) => b.price - a.price);
-      console.log("körs denna funktion? priceHigh");
     },
     alfabeticalHigh() {
       this.products.sort((a, b) => a.title.localeCompare(b.title));
-      console.log("körs denna funktion? AlfabeticalHigh");
     },
     alfabeticalLow() {
       this.products.sort((a, b) => a.title.localeCompare(b.title)).reverse();
-      console.log("körs denna funktion? AlfabeticalLow");
     },
     priceLow() {
       this.products.sort((a, b) => a.price - b.price);
-      console.log("körs denna funktion? priceLow");
     },
 
     // Filter funktionalitet
-    async filterCategory(kategory) {
-      console.log(kategory);
-      if (kategory === "Allt") {
+    async filterCategory(category) {
+      console.log(category);
+      if (category === "Allt") {
         await this.fetchProducts();
-      } else if (kategory !== "Allt") {
+      } else if (category !== "Allt") {
         await this.fetchProducts();
         this.products = this.products.filter(
-          (item) => item.category === kategory
+          (item) => item.category === category
         );
       }
     },
 
     // Sök funktionalitet
     searchProducts(search) {
-      console.log(search);
       // const matchingProducts = this.products.filter((product) => {
       //   const title = product.title.toLowerCase();
       //   return title.includes(search.toLowerCase());
@@ -220,7 +268,6 @@ export default {
         const titel = produkt.title.toLowerCase();
         return titel.includes(search.toLowerCase());
       });
-      console.log(matchandeProdukter.length, " vi kom till andra sök");
       return matchandeProdukter;
       // } else {
       //   console.log("vi kom till else, nu ska man fetcha enligt sök");

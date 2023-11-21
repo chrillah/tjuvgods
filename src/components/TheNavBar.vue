@@ -196,7 +196,7 @@ nav ul li a:hover {
 }
 
 .add-margin {
-  margin-top: 3.5rem;
+    height: 42px;
 }
 
 .cross,
