@@ -44,15 +44,23 @@ export default {
         <div :class="menu">
           <ul class="link-menu">
             <li class="nav-item">
-              <RouterLink to="/" class="nav-link active" aria-current="page"
+              <RouterLink
+                @click="closeMenu()"
+                to="/"
+                class="nav-link active"
+                aria-current="page"
                 >Hem</RouterLink
               >
             </li>
             <li class="nav-item">
-              <RouterLink to="/products" class="nav-link">Produkter</RouterLink>
+              <RouterLink @click="closeMenu()" to="/products" class="nav-link"
+                >Produkter</RouterLink
+              >
             </li>
             <li class="nav-item">
-              <RouterLink to="/about" class="nav-link">Om oss</RouterLink>
+              <RouterLink @click="closeMenu()" to="/about" class="nav-link"
+                >Om oss</RouterLink
+              >
             </li>
           </ul>
           <button
@@ -105,6 +113,7 @@ a {
   left: 0;
   right: 0;
   background-color: #ffffff;
+  box-shadow: var(--shadow);
 }
 
 .nav-bar-container {
@@ -196,7 +205,7 @@ nav ul li a:hover {
 }
 
 .add-margin {
-    height: 42px;
+  height: 42px;
 }
 
 .cross,
